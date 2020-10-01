@@ -22,7 +22,7 @@ namespace SalariesDll
         /// <summary>
         /// Extraire un utilisateur par son ID
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="identifiant"></param>
         /// <returns></returns>
         public Role RechercherRole(string identifiant)
         {
