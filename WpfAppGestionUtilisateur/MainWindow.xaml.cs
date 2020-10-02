@@ -35,6 +35,7 @@ namespace WpfAppGestionUtilisateur
             //ouverture de la fenetre connexion
             FormConnexion fC = new FormConnexion();
             Nullable<Boolean> result = fC.ShowDialog();
+            Debug.WriteLine(result);
 
         }
 

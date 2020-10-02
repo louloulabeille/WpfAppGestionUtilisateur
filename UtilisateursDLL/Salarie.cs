@@ -91,7 +91,10 @@ namespace SalariesDll
             }
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="changementSalaireEventArgs"></param>
         protected virtual void OnChangementSalaire(ChangementSalaireEventArgs changementSalaireEventArgs)
         {
             EventHandler<ChangementSalaireEventArgs> handleLocal = ChangementSalaire;
@@ -187,6 +190,11 @@ namespace SalariesDll
             }
             return true;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static bool IsDateNaissanceValide(DateTime value)
         {
             if (value.CompareTo(new DateTime(1900, 01, 01)) < 0) return false; 

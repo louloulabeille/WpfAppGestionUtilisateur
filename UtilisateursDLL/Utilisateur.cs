@@ -13,7 +13,9 @@ using System.Globalization;
 
 namespace SalariesDll
 {
- 
+        /// <summary>
+        /// 
+        /// </summary>
     [Serializable()]
     public class Utilisateur
     {
@@ -26,7 +28,9 @@ namespace SalariesDll
         private DateTime _dateDerniereConnexion;
         private Role _role;
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public int NombreEchecsConsecutifs
         {
             get { return _nombreEchecsConsecutifs; }
@@ -43,6 +47,9 @@ namespace SalariesDll
         #endregion
 
         #region Propriétés
+        /// <summary>
+        /// 
+        /// </summary>
         public bool CompteBloque
         {
             get { return _compteBloque; }
@@ -50,7 +57,9 @@ namespace SalariesDll
         }
 
       
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string Identifiant
         {
             get { return this._identifiant; }
@@ -62,12 +71,18 @@ namespace SalariesDll
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Nom
         {
             get { return this._nom; }
             set { _nom = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string MotDePasse
         {
             get { return this._motDePasse; }
@@ -77,6 +92,9 @@ namespace SalariesDll
               else throw (new ApplicationException("Mot de passe non valide"));
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public Role Role
         {
             get { return _role; }
@@ -99,7 +117,7 @@ namespace SalariesDll
         /// <summary>
         /// Vérification validité de l'identifiant
         /// </summary>
-        /// <param name="motPasse"></param>
+        /// <param name="identifiant"></param>
         /// <returns></returns>
         public static bool IsIdentifiantValide(string identifiant)
         {
@@ -112,7 +130,7 @@ namespace SalariesDll
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.CurrentCulture, @"{0};{1);{2};{3};{4};{5}", this._identifiant, this._nom, this._motDePasse,this._compteBloque,this._dateDerniereConnexion,this._nombreEchecsConsecutifs);
+            return string.Format(CultureInfo.CurrentCulture, @"{0};{1};{2};{3};{4};{5}", this._identifiant, this._nom, this._motDePasse,this._compteBloque,this._dateDerniereConnexion,this._nombreEchecsConsecutifs);
         }
         /// <summary>
         /// Compare deux objets pour déterminer l'égalité
@@ -200,7 +218,11 @@ namespace SalariesDll
             
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="motDePasse"></param>
+        /// <returns></returns>
         public ConnectionResult Connecter(string motDePasse)
         {
            

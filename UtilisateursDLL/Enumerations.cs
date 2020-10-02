@@ -6,10 +6,22 @@ using System.Threading.Tasks;
 
 namespace SalariesDll
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum ConnectionResult
     {
-        Connecté=0,
+        /// <summary>
+        /// enumerable de gestion de connaction
+        /// </summary>
+        Connecté=0, 
+        /// <summary>
+        /// 
+        /// </summary>
         MotPasseInvalide = 2,
+        /// <summary>
+        /// 
+        /// </summary>
         CompteBloqué = 3
     }
 }

@@ -106,12 +106,20 @@ namespace SalariesDll
             Salarie salrec = this.ExtraireSalarie(matricule);
             if (salrec != null) base.Remove(salrec);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sauvegarde"></param>
+        /// <param name="pathRepData"></param>
         public void Save(Utilitaires.ISauvegarde sauvegarde, string pathRepData)
         {
             sauvegarde.Save(pathRepData, this);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sauvegarde"></param>
+        /// <param name="pathRepData"></param>
         public void Load(Utilitaires.ISauvegarde sauvegarde, string pathRepData)
         {
             this.SymmetricExceptWith((Salaries)sauvegarde.Load(pathRepData, this.GetType()));

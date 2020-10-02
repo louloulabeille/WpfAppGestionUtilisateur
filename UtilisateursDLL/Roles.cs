@@ -10,6 +10,9 @@ using Utilitaires;
 
 namespace SalariesDll
 {
+    /// <summary>
+    /// 
+    /// </summary>
      [Serializable()]
     public class Roles : HashSet<Role>,ICollectionMetier
     {
@@ -18,6 +21,11 @@ namespace SalariesDll
         /// </summary>
         public Roles() : base() { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         protected Roles(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
         /// Extraire un utilisateur par son ID
@@ -40,8 +48,9 @@ namespace SalariesDll
         /// Se substitue à la méthode de base
         /// Pour vérifier unicité de l'identifiant
         /// </summary>
-        /// <param name="salarie"></param>
-        /// <exception cref="UtilisateurException"> Utilisateur_001 lorsque le salarie existe déjà</exception>
+        /// <param name="role"></param>
+        /// <exception cref="ApplicationException"> Utilisateur_001 lorsque le salarie existe déjà</exception>
+        /// 
         new public void Add(Role role)
         {
             foreach (Role item in this)
@@ -55,12 +64,20 @@ namespace SalariesDll
             base.Add(role);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sauvegarde"></param>
+        /// <param name="pathRepData"></param>
         public void Save(ISauvegarde sauvegarde, string pathRepData)
         {
             sauvegarde.Save(pathRepData, this);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sauvegarde"></param>
+        /// <param name="pathRepData"></param>
         public void Load(ISauvegarde sauvegarde, string pathRepData)
         {
             this.SymmetricExceptWith((Roles)sauvegarde.Load(pathRepData, this.GetType()));

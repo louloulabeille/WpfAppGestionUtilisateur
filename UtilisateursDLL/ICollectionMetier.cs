@@ -13,11 +13,13 @@ namespace SalariesDll
         /// Sauvegarde des entités
         /// </summary>
         /// <param name="pathRepData">Chemin complet du dossier</param>
+        /// <param name="sauvegarde">Mécanisme de sauvegarde</param>
         void Save(ISauvegarde sauvegarde, string pathRepData);
         /// <summary>
         /// Extraction des entités 
         /// </summary>
         /// <param name="pathRepData">Chemin complet du dossier</param>
+        /// <param name="sauvegarde">Mécanisme de chargement</param>
         void Load(ISauvegarde sauvegarde, string pathRepData);
     }
 }

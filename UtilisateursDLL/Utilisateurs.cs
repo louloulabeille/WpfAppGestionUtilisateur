@@ -24,7 +24,7 @@ namespace SalariesDll
         /// <summary>
         /// Extraire un utilisateur par son matricule
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="identifiant"></param>
         /// <returns></returns>
         public Utilisateur UtilisateurByMatricule(string identifiant)
         {
@@ -37,6 +37,11 @@ namespace SalariesDll
             }
             return null;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="debutNom"></param>
+        /// <returns></returns>
         public IEnumerable<Utilisateur> UtilisateurByDebutNom(string debutNom)
         {
             HashSet<Utilisateur> liste = new HashSet<Utilisateur>();
@@ -54,8 +59,8 @@ namespace SalariesDll
         /// Se substitue à la méthode de base
         /// Pour vérifier unicité de l'identifiant
         /// </summary>
-        /// <param name="salarie"></param>
-        /// <exception cref="UtilisateurException"> Utilisateur_001 lorsque le salarie existe déjà</exception>
+        /// <param name="utilisateur"></param>
+        /// <exception cref="ApplicationException"> Utilisateur_001 lorsque le salarie existe déjà</exception>
         new public void Add(Utilisateur utilisateur)
         {
             if (this.Contains(utilisateur))
@@ -73,7 +78,11 @@ namespace SalariesDll
         {
             sauvegarde.Save(pathRepData, this);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sauvegarde"></param>
+        /// <param name="pathRepData"></param>
         public void Load(ISauvegarde sauvegarde, string pathRepData)
         {
             this.SymmetricExceptWith((Utilisateurs)sauvegarde.Load(pathRepData, this.GetType()));
