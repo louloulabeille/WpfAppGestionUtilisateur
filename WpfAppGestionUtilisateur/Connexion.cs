@@ -9,7 +9,7 @@ namespace WpfAppGestionUtilisateur
 {
     public static class Connexion
     {
-        public static Utilisateur _utilisateurconnecte;
+        public static Utilisateur _utilisateurconnecte = null;
 
     }
 }

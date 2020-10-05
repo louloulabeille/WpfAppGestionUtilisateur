@@ -21,6 +21,7 @@ namespace SalariesDll
         /// Constructeur par défaut 
         /// </summary>
         public Utilisateurs() : base() { }
+
         /// <summary>
         /// Extraire un utilisateur par son matricule
         /// </summary>
@@ -54,6 +55,7 @@ namespace SalariesDll
             }
             return liste;
         }
+
         /// <summary>
         /// Ajout d'un nouvel utilisateur 
         /// Se substitue à la méthode de base
@@ -69,6 +71,7 @@ namespace SalariesDll
              }
             base.Add(utilisateur);
         }
+
         /// <summary>
         /// Sauvegarde
         /// </summary>
@@ -78,6 +81,7 @@ namespace SalariesDll
         {
             sauvegarde.Save(pathRepData, this);
         }
+
         /// <summary>
         /// 
         /// </summary>

@@ -1,6 +1,7 @@
 ﻿using SalariesDll;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,18 +33,27 @@ namespace WpfAppGestionUtilisateur
             InitializeComponent();
         }
 
+        #region assesseur
         /// <summary>
         /// assesseur de validation de la fenêtre
         /// </summary>
         public bool ValidationId { get => _validationId; set => _validationId = value; }
         public bool ValidationPassWorld { get => _ValidationPassWorld; set => _ValidationPassWorld = value; }
+        #endregion
 
+        #region event
+        /// <summary>
+        /// event de test de l'identifant 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EventTextBoxIdentifiant(object sender, RoutedEventArgs e)
         {
             ValidationId = false;
             if (!Utilisateur.IsIdentifiantValide(TextBoxIdentifiant.Text))
             {
                 ValidationId = false;
+                LabelError.Content = "L'identifiant saisie est incorrecte!\n Il doit être supérieur à 4 caractères et commencer par une lettre.";
             }
             else
             {
@@ -52,6 +62,11 @@ namespace WpfAppGestionUtilisateur
             }
         }
 
+        /// <summary>
+        /// event de test du mot de passe
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EventVerifPassWorld(object sender, RoutedEventArgs e)
         {
             ValidationPassWorld = false;
@@ -63,6 +78,7 @@ namespace WpfAppGestionUtilisateur
             else
             {
                 ValidationPassWorld = false;
+                LabelError.Content = "Le mot de passe saisie n'est pas correcte.\n Il doit être supérieur à 5 caractères.";
             }
         }
 
@@ -79,26 +95,46 @@ namespace WpfAppGestionUtilisateur
                 SauvegardeXML loadUtil = new SauvegardeXML();
                 Utilisateur util = new Utilisateur();
 
-                listUtil.Load(loadUtil, "Donnee");
+                listUtil.Load(loadUtil, Paramètres.Default.path);
 
                 util = listUtil.UtilisateurByMatricule(TextBoxIdentifiant.Text);
-                ConnectionResult connexionResult = util.Connecter(PassworldBoxMotDePasse.Password);
-                switch (connexionResult)
+                if ( util == null )
                 {
-                    case ConnectionResult.Connecté:
-                        Roles r = new Roles();
-                        Role roleUtil = new Role();
-                        r.Load(new SauvegardeXML(), "Donnee");
-                        roleUtil = r.RechercherRole(util.Identifiant);
-                        util.Role = roleUtil;
-
-                        Connexion._utilisateurconnecte = util;
-                        break;
-                    case ConnectionResult.CompteBloqué:
-                        break;
-                    case ConnectionResult.MotPasseInvalide:
-                        break;
+                    LabelError.Content = "Le compte utilisateur n'existe pas \nou le mot de passe est incorrecte.";
                 }
+                else
+                {
+                    ConnectionResult connexionResult = util.Connecter(PassworldBoxMotDePasse.Password);
+                    Connexion._utilisateurconnecte = util;
+                    switch (connexionResult)
+                    {
+                        case ConnectionResult.Connecté:
+                            Roles r = new Roles();
+                            Role roleUtil = new Role();
+                            r.Load(new SauvegardeXML(), Paramètres.Default.path);
+                            roleUtil = r.RechercherRole(util.Identifiant);
+                            util.Role = roleUtil;
+                            DialogResult = true;
+                            break;
+                        case ConnectionResult.CompteBloqué:
+                            LabelError.Content = "Le compte utilisateur est bloqué. Veuillez contacter l'administrateur.";
+                            ButtonAnnuler.Focus();
+                            break;
+                        case ConnectionResult.MotPasseInvalide:
+                            LabelError.Content = $"Le compte utilisateur n'existe pas \nou le mot de passe est incorrecte.\nNombre d'échec{util.NombreEchecsConsecutifs}";
+                            TextBoxIdentifiant.Focus();
+                            if (util.NombreEchecsConsecutifs == 3)
+                            {
+                                util.CompteBloque = true;
+                            }
+                            listUtil.Remove(util);
+                            listUtil.Add(util);
+                            listUtil.Save(loadUtil, Paramètres.Default.path);
+                            PassworldBoxMotDePasse.Focus();
+                            break;
+                    }
+                }
+                
             }
             else
             {
@@ -106,5 +142,6 @@ namespace WpfAppGestionUtilisateur
                 if (!ValidationPassWorld) PassworldBoxMotDePasse.Focus();
             }
         }
+        #endregion
     }
 }

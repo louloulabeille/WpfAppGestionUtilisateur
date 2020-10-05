@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppGestionUtilisateur"
         mc:Ignorable="d"
-        Title="Connexion" Height="207" Width="338">
+        Title="Connexion" Height="217" Width="341" Background="#FFFDFDFD">
     <Grid>
         <Label Content="Identifant Utilisateur :" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,-0.269"/>
         <TextBox x:Name="TextBoxIdentifiant" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="274" LostFocus="EventTextBoxIdentifiant"/>
-        <Label Content="Mot de passe :" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="PassworldBoxMotDePasse" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="274" Height="24" LostFocus="EventVerifPassWorld"/>
-        <Button x:Name="ButtonValider" Content="Valider" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="75" Click="EventValidationConnexion" IsDefault="True"/>
-        <Button x:Name="ButtonAnnuler" Content="Annuler" HorizontalAlignment="Left" Margin="155,137,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
+        <Label Content="Mot de passe :" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top"/>
+        <PasswordBox x:Name="PassworldBoxMotDePasse" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="274" Height="24" LostFocus="EventVerifPassWorld"/>
+        <Button x:Name="ButtonValider" Content="Valider" HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top" Width="75" Click="EventValidationConnexion" IsDefault="True"/>
+        <Button x:Name="ButtonAnnuler" Content="Annuler" HorizontalAlignment="Left" Margin="154,156,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
+        <Label  x:Name="LabelError" Content="" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" Background="{x:Null}" RenderTransformOrigin="0.2,0.5" FontSize="10" Foreground="Red"/>
 
     </Grid>
 </Window>
