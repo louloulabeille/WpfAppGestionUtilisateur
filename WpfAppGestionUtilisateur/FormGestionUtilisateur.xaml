@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="Gestion Utilisateur" Height="347" Width="759">
     <Grid>
-        <Label Content="Identifiant :" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="139"/>
+        <Label Content="Identifiant :" Margin="10,39,0,0" Width="139" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Label Content="Nom :" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="139" RenderTransformOrigin="0.515,0.204"/>
         <Label Content="Mot de passe :" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" Width="139"/>
         <Label Content="Compte bloqué :" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="139" RenderTransformOrigin="0.525,1.61"/>
         <Label Content="Role :" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top" Width="139" RenderTransformOrigin="0.525,1.61"/>
-        <TextBox x:Name="TextBoxIdentifiant" HorizontalAlignment="Left" Height="23" Margin="152,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187" LostFocus="EventTextBoxIdentifiantLostFocus" TextChanged="EventTextBoxIdentifiantLostFocus"/>
+        <TextBox x:Name="TextBoxIdentifiant" HorizontalAlignment="Left" Height="23" Margin="152,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187" LostFocus="EventTextBoxIdentifiantLostFocus" TextChanged="EventTextBoxIdentifiantLostFocus" GotFocus="EventTextBoxIdentifiantGotFocus" BorderBrush="#FFABADB3" SelectionBrush="#FF0078D7"/>
         <TextBox x:Name="TextBoxNom" HorizontalAlignment="Left" Height="23" Margin="152,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187"/>
         <PasswordBox x:Name="PassWordBox1" HorizontalAlignment="Left" Margin="152,91,0,0" VerticalAlignment="Top" Width="187" Height="24" LostFocus="EventPassWordBox"/>
         <ComboBox x:Name="ComboBoxRole" HorizontalAlignment="Left" Margin="152,178,0,0" VerticalAlignment="Top" Width="187" Height="24" SelectedIndex="0">

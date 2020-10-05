@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="Gestion Salarié" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Button x:Name="ButtonConnexion" Content="Connexion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="EventClicButonConnexion"/>
         <Button x:Name="ButtonUtilisateur" Content="Utilisateur" HorizontalAlignment="Left" Margin="74,0,0,0" VerticalAlignment="Top" Width="75" Click="EventOpenUtilisateur"/>
         <Button x:Name="ButtonSalarie" Content="Salarie" HorizontalAlignment="Left" Margin="147,0,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.131,-1.494"/>

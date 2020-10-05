@@ -28,7 +28,7 @@ namespace WpfAppGestionUtilisateur
         {
             InitializeComponent();
             GestionButton();
-            //InitApplication();
+            InitApplication();
         }
 
         #region Event de la fenêtre
@@ -108,8 +108,7 @@ namespace WpfAppGestionUtilisateur
                             break;
                     }
                 }
-            }
-            
+            }   
         }
 
 
@@ -121,17 +120,22 @@ namespace WpfAppGestionUtilisateur
             try
             {
                 Utilisateurs listeUtil = new Utilisateurs();
-                Utilisateur u1 = new Utilisateur("A178APE", "loulou", "azerty");
-                Utilisateur u2 = new Utilisateur("B178APE", "Loulette", "azerty");
-                u1.CompteBloque = false;
-                u2.CompteBloque = false;
+                Utilisateur u1 = new Utilisateur("A178APE", "loulou", "azerty")
+                { CompteBloque = false };
+                Utilisateur u2 = new Utilisateur("B178APE", "Loulette", "azerty")
+                { CompteBloque = false };
 
-                Role r1 = new Role();
-                Role r2 = new Role();
-                r1.Identifiant = "A178APE";
-                r1.Description = "Admin";
-                r2.Identifiant = "B178APE";
-                r2.Description = "Utilisateur";
+                Role r1 = new Role()
+                {
+                    Identifiant = "A178APE",
+                    Description = "Admin"
+                };
+
+                Role r2 = new Role()
+                {
+                    Identifiant = "B178APE",
+                    Description = "Utilisateur"
+                };
 
                 Roles listRole = new Roles();
                 listRole.Add(r1);
@@ -146,7 +150,6 @@ namespace WpfAppGestionUtilisateur
                 SauvegardeXML saveXml = new SauvegardeXML();
                 listeUtil.Save(saveXml, "Donnee");
                 listRole.Save(saveXml, "Donnee");
-
             }
             catch (ApplicationException aE)
             {

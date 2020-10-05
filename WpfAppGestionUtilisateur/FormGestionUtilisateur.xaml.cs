@@ -130,12 +130,35 @@ namespace WpfAppGestionUtilisateur
         /// </summary>
         private void VerifIdentifiant ()
         {
-            LabelError.Content = Utilisateur.IsIdentifiantValide(TextBoxIdentifiant.Text) ? string.Empty : "L'idenfitiant saisie est invalide." +
-                "\nIl doit être supérieur à 4 caractères et doit commencer par une lettre.";
+            if (!Utilisateur.IsIdentifiantValide(TextBoxIdentifiant.Text))
+            {
+                TextBoxIdentifiant.BorderBrush = Brushes.Red;
+                TextBoxIdentifiant.SelectionBrush = Brushes.Red;
+            }
+            else
+            {
+                TextBoxIdentifiant.BorderBrush = Brushes.Gray;
+                TextBoxIdentifiant.SelectionBrush = Brushes.Blue;
+
+            }
+            /*LabelError.Content = Utilisateur.IsIdentifiantValide(TextBoxIdentifiant.Text) ? string.Empty : "L'idenfitiant saisie est invalide." +
+                "\nIl doit être supérieur à 4 caractères et doit commencer par une lettre.";*/
+        }
+
+        private bool VerifFormulaire ()
+        {
+            if ( Utilisateur.IsIdentifiantValide(TextBoxIdentifiant.Text) && Utilisateur.IsMotPasseValide(PassWordBox1.Password) )
+            {
+                
+            }
+            return false;
         }
 
         #endregion
 
-        
+        private void EventTextBoxIdentifiantGotFocus(object sender, RoutedEventArgs e)
+        {
+            VerifIdentifiant();
+        }
     }
 }
