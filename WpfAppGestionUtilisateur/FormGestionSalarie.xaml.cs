@@ -84,52 +84,7 @@ namespace WpfAppGestionUtilisateur
         /// <param name="e"></param>
         private void EventButtonSauvegarderClick(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                //object s = (bool)CheckBoxCommercial.IsChecked ? new Commercial():new Salarie();
-                if (IsVerifChamp())
-                {
-                    Salaries listeSal = new Salaries();
-                    
-                    StringBuilder sB = new StringBuilder(Paramètres.Default.path);
-                    sB.Append($@"\{listeSal.GetType().FullName}.Xml");
-
-                    Salarie s = new Salarie(TextBoxNom.Text.Trim(), TextBoxPrenom.Text.Trim(), TextBoxMatricule.Text.Trim())
-                    {
-                        DateNaissance = (DateTime)(DatePickerDateDeNaissance.SelectedDate),
-                        SalaireBrut = decimal.Parse(TextBoxSalaireBrut.Text.Trim()),
-                        TauxCS = decimal.Parse(TextBoxTauxCotisationSociale.Text.Trim()),
-                    };
-                    s = (bool)CheckBoxCommercial.IsChecked ? new Commercial(s) : s;
-
-                    if (s is Commercial c)
-                    {
-                        c.ChiffreAffaire = decimal.Parse(TextBoxChiffreDAffaire.Text.Trim());
-                        c.Commission = decimal.Parse(TextBoxCommission.Text.Trim());
-                        s = c;
-                    }
-
-                    if (File.Exists(sB.ToString()))
-                    {
-                        listeSal.Load(new SauvegardeXML(), Paramètres.Default.path);
-                    }
-
-                    if ( listeSal.Contains(s) ) // modification
-                    {
-                        listeSal.Remove(s);
-                    }
-                    listeSal.Add(s);
-
-                    listeSal.Save(new SauvegardeXML(), Paramètres.Default.path);
-                    Clear();
-                    InitListBoxSalarie(string.Empty);
-                }
-            }
-            catch(ApplicationException aE)
-            {
-                Debug.WriteLine(aE.Source);
-                //ErreurSaisie();
-            }
+            SauvegardeSalarie();
         }
 
         /// <summary>
@@ -216,6 +171,78 @@ namespace WpfAppGestionUtilisateur
         #endregion
 
         #region méthode de classe
+
+        /// <summary>
+        /// sauvegarde ou modifie le salarié
+        /// </summary>
+        private void SauvegardeSalarie()
+        {
+            try
+            {
+                //object s = (bool)CheckBoxCommercial.IsChecked ? new Commercial():new Salarie();
+                if (IsVerifChamp())
+                {
+                    Salaries listeSal = new Salaries();
+
+                    StringBuilder sB = new StringBuilder(Paramètres.Default.path);
+                    sB.Append($@"\{listeSal.GetType().FullName}.Xml");
+
+                    Salarie s = new Salarie(TextBoxNom.Text.Trim(), TextBoxPrenom.Text.Trim(), TextBoxMatricule.Text.Trim())
+                    {
+                        DateNaissance = (DateTime)(DatePickerDateDeNaissance.SelectedDate),
+                        SalaireBrut = decimal.Parse(TextBoxSalaireBrut.Text.Trim()),
+                        TauxCS = decimal.Parse(TextBoxTauxCotisationSociale.Text.Trim()),
+                    };
+                    s = (bool)CheckBoxCommercial.IsChecked ? new Commercial(s) : s;
+
+                    if (s is Commercial c)
+                    {
+                        c.ChiffreAffaire = decimal.Parse(TextBoxChiffreDAffaire.Text.Trim());
+                        c.Commission = decimal.Parse(TextBoxCommission.Text.Trim());
+                        s = c;
+                    }
+
+                    if (File.Exists(sB.ToString()))
+                    {
+                        listeSal.Load(new SauvegardeXML(), Paramètres.Default.path);
+                    }
+
+                    if (listeSal.Contains(s)) // modification
+                    {
+                        listeSal.Remove(s);
+                    }
+                    listeSal.Add(s);
+
+                    listeSal.Save(new SauvegardeXML(), Paramètres.Default.path);
+                    Clear();
+                    InitListBoxSalarie(string.Empty);
+                }
+            }
+            catch (ApplicationException aE)
+            {
+                Debug.WriteLine(aE.InnerException);
+            }
+            catch (Exception eX)
+            {
+                Debug.WriteLine(eX.TargetSite);
+                Debug.WriteLine("-----------------");
+                Debug.WriteLine(eX.InnerException);
+                Debug.WriteLine("-----------------");
+                Debug.WriteLine(eX.StackTrace);
+                Debug.WriteLine("-----------------");
+                Debug.WriteLine(eX.Message);
+                Debug.WriteLine("-----------------");
+                Debug.WriteLine(eX.Data);
+                Debug.WriteLine("-----------------");
+                Debug.WriteLine(eX.HelpLink);
+                Debug.WriteLine("-----------------");
+                Debug.WriteLine(eX.HResult);
+                Debug.WriteLine("-----------------");
+                Debug.WriteLine(eX.Source);
+                Debug.WriteLine("-----------------");
+            }
+        }
+
 
         /// <summary>
         /// méthode de vérification de certains champ saisie
