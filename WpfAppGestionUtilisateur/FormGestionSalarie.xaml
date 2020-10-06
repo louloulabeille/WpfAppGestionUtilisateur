@@ -8,15 +8,15 @@
         mc:Ignorable="d"
         Title="Gestion salarié" Height="388" Width="800">
     <Grid Margin="0,1,0,-3">
-        <TextBox x:Name="TextBoxNomRecherche" HorizontalAlignment="Left" Height="23" Margin="559,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201"/>
+        <TextBox x:Name="TextBoxNomRecherche" HorizontalAlignment="Left" Height="23" Margin="559,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" LostFocus="EventTextBoxLostFocus"/>
         <ListBox x:Name="ListBoxSalarie" HorizontalAlignment="Left" Height="174" Margin="559,36,0,0" VerticalAlignment="Top" Width="201">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0.2" HorizontalAlignment="Center">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding Matricule}"/>
                         <TextBlock Grid.Column="1" Text="{Binding Nom}"/>
@@ -25,30 +25,28 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="445"/>
-        <Label Content="Matricule :" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
+        <Rectangle x:Name="RectangleSalarie" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="445"/>            <Label Content="Matricule :" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
         <Label Content="Nom :" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
         <Label Content="Prénom :" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
         <Label Content="Salaire brut :" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
         <Label Content="Taux cotisation sociale :" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
         <Label Content="Date de naissance :" HorizontalAlignment="Left" Margin="10,174,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155" Height="26"/>
         <Label Content="Salaire net :" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="83" Margin="10,215,0,0" Stroke="Black" VerticalAlignment="Top" Width="445"/>
+        <TextBox x:Name="TextBoxMatricule" HorizontalAlignment="Left" Height="26" Margin="170,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" TextChanged="EventTextBoxVerificationTextChanged" LostFocus="EventTextBoxLostFocus"/>
+        <TextBox x:Name="TextBoxNom" HorizontalAlignment="Left" Height="26" Margin="170,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" TextChanged="EventTextBoxVerificationTextChanged" LostFocus="EventTextBoxLostFocus"/>
+        <TextBox x:Name="TextBoxPrenom" HorizontalAlignment="Left" Height="26" Margin="170,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" TextChanged="EventTextBoxVerificationTextChanged" LostFocus="EventTextBoxLostFocus"/>
+        <TextBox x:Name="TextBoxSalaireBrut" HorizontalAlignment="Left" Height="26" Margin="170,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" AutomationProperties.ItemType="decimal" PreviewTextInput="EventTextBoxDecimalPreviewTextInput" LostFocus="EventTextBoxLostFocus"/>
+        <TextBox x:Name="TextBoxSalaireNet" HorizontalAlignment="Left" Height="26" Margin="170,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" PreviewTextInput="EventTextBoxDecimalPreviewTextInput" LostFocus="EventTextBoxLostFocus"/>
+        <TextBox x:Name="TextBoxTauxCotisationSociale" HorizontalAlignment="Left" Height="26" Margin="170,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" PreviewTextInput="EventTextBoxDecimalPreviewTextInput" LostFocus="EventTextBoxLostFocus"/>
+        <DatePicker x:Name="DatePickerDateDeNaissance" HorizontalAlignment="Left" Margin="170,175,0,0" VerticalAlignment="Top" Width="276" Height="26"/>
+        <Rectangle x:Name="RectangleCommercial" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="83" Margin="10,215,0,0" Stroke="Black" VerticalAlignment="Top" Width="445"/>
         <CheckBox x:Name="CheckBoxCommercial" Content="Commercial" HorizontalAlignment="Left" Margin="14,218,0,0" VerticalAlignment="Top" Width="101"/>
         <Label Content="Chiffre d'affaire :" HorizontalAlignment="Left" Margin="10,240,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
         <Label Content="Commission :" HorizontalAlignment="Left" Margin="10,266,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
-        <TextBox x:Name="TextBoxDateDeNaissance" HorizontalAlignment="Left" Height="26" Margin="170,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276"/>
-        <TextBox x:Name="TextBoxTauxCotisationSociale" HorizontalAlignment="Left" Height="26" Margin="170,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" PreviewTextInput="EventTextBoxDecimalPreviewTextInput"/>
-        <TextBox x:Name="TextBoxSalaireNet" HorizontalAlignment="Left" Height="26" Margin="170,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" PreviewTextInput="EventTextBoxDecimalPreviewTextInput"/>
-        <TextBox x:Name="TextBoxSalaireBrut" HorizontalAlignment="Left" Height="26" Margin="170,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" AutomationProperties.ItemType="decimal" PreviewTextInput="EventTextBoxDecimalPreviewTextInput"/>
-        <TextBox x:Name="TextBoxPrenom" HorizontalAlignment="Left" Height="26" Margin="170,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" TextChanged="EventTextBoxVerificationTextChanged"/>
-        <TextBox x:Name="TextBoxNom" HorizontalAlignment="Left" Height="26" Margin="170,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" TextChanged="EventTextBoxVerificationTextChanged"/>
-        <TextBox x:Name="TextBoxMatricule" HorizontalAlignment="Left" Height="26" Margin="170,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" TextChanged="EventTextBoxVerificationTextChanged"/>
-        <TextBox x:Name="TextBoxChiffreDAffaire" HorizontalAlignment="Left" Height="26" Margin="170,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" PreviewTextInput="EventTextBoxDecimalPreviewTextInput"/>
-        <TextBox x:Name="TextBoxCommission" HorizontalAlignment="Left" Height="26" Margin="170,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" PreviewTextInput="EventTextBoxDecimalPreviewTextInput"/>
-        <Button x:Name="ButtonSauvegarder" Content="Sauvegarder" HorizontalAlignment="Left" Margin="10,318,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.547,-0.55" IsDefault="True"/>
-        <Button x:Name="ButtonAnnuler" Content="Annuler" HorizontalAlignment="Left" Margin="146,318,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.547,-0.55"/>
-        <Button x:Name="ButtonQuitter" Content="Quitter" HorizontalAlignment="Left" Margin="282,318,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.547,-0.55" IsCancel="True"/>
-
+        <TextBox x:Name="TextBoxChiffreDAffaire" HorizontalAlignment="Left" Height="26" Margin="170,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" PreviewTextInput="EventTextBoxDecimalPreviewTextInput" LostFocus="EventTextBoxLostFocus"/>
+        <TextBox x:Name="TextBoxCommission" HorizontalAlignment="Left" Height="26" Margin="170,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" PreviewTextInput="EventTextBoxDecimalPreviewTextInput" LostFocus="EventTextBoxLostFocus"/>
+        <Button x:Name="ButtonSauvegarder" Content="Sauvegarder" HorizontalAlignment="Left" Margin="10,313,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.547,-0.55" IsDefault="True" Click="EventButtonSauvegarderClick"/>
+        <Button x:Name="ButtonAnnuler" Content="Annuler" HorizontalAlignment="Left" Margin="146,313,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.547,-0.55" Click="EventButtonAnnulerClick"/>
+        <Button x:Name="ButtonQuitter" Content="Quitter" HorizontalAlignment="Left" Margin="282,313,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.547,-0.55" IsCancel="True" Click="EventButtonQuitterClick"/>
     </Grid>
 </Window>

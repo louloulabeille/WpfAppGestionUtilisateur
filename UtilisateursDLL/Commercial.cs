@@ -51,6 +51,16 @@ namespace SalariesDll
         }
 
         /// <summary>
+        /// constructeur en passant un salarie
+        /// </summary>
+        /// <param name="s"></param>
+        public Commercial( Salarie s )
+            :base(s)
+        {
+
+        }
+
+        /// <summary>
         /// Constructeur d'initialisation
         /// </summary>
         public Commercial(string nom, string prenom, string matricule, decimal chiffreAffaire, decimal commission)

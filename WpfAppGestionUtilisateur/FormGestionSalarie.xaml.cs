@@ -1,6 +1,7 @@
 ﻿using SalariesDll;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
@@ -27,10 +28,33 @@ namespace WpfAppGestionUtilisateur
         {
             InitializeComponent();
             InitListBoxSalarie(string.Empty);
-
+            InitCalendar();
+            IsVerifChamp();
         }
 
         #region Event
+
+        /// <summary>
+        /// enlève les espaces dans les champs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EventTextBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            t.Text = t.Text.Trim();
+        }
+
+        /// <summary>
+        /// re - initilise la fenêtre
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EventButtonAnnulerClick(object sender, RoutedEventArgs e)
+        {
+            Clear();
+        }
+
         /// <summary>
         /// event de de verification de textBox 
         /// </summary>
@@ -41,6 +65,7 @@ namespace WpfAppGestionUtilisateur
             IsVerifChampSaisie(sender);
 
         }
+
         /// <summary>
         /// event d'interdiction de la saisie de lettres
         /// </summary>
@@ -48,21 +73,102 @@ namespace WpfAppGestionUtilisateur
         /// <param name="e"></param>
         private void EventTextBoxDecimalPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = e.Text.Any(x => char.IsLetter(x)) ? true : false;
+            IsVerifDecimal(e);
         }
+
+        /// <summary>
+        /// event d'enregistrement ou de modification d'un salarié
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EventButtonSauvegarderClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //object s = (bool)CheckBoxCommercial.IsChecked ? new Commercial():new Salarie();
+                if (IsVerifChamp())
+                {
+                    Salaries listeSal = new Salaries();
+                    
+                    StringBuilder sB = new StringBuilder(Paramètres.Default.path);
+                    sB.Append($"{listeSal.GetType().FullName}.Xml");
+
+                    /*Salarie s = new Salarie(TextBoxNom.Text.Trim(), TextBoxPrenom.Text.Trim(), TextBoxMatricule.Text.Trim())
+                    {
+                        DateNaissance = (DateTime)(DatePickerDateDeNaissance.SelectedDate),
+                        SalaireBrut = decimal.Parse(TextBoxSalaireBrut.Text.Trim()),
+                        TauxCS = decimal.Parse(TextBoxTauxCotisationSociale.Text.Trim()),
+                    };*/
+
+                    Salarie s = new Salarie(TextBoxNom.Text.Trim(), TextBoxPrenom.Text.Trim(), TextBoxMatricule.Text.Trim());
+                    s.DateNaissance = DatePickerDateDeNaissance.SelectedDate.Value;
+                    s.SalaireBrut = decimal.Parse(TextBoxSalaireBrut.Text.Trim());
+                    s.TauxCS = decimal.Parse(TextBoxTauxCotisationSociale.Text.Trim());
+
+                    s = (bool)CheckBoxCommercial.IsChecked ? new Commercial(s) : s;
+
+                    if (s is Commercial c)
+                    {
+                        c.ChiffreAffaire = decimal.Parse(TextBoxChiffreDAffaire.Text.Trim());
+                        c.Commission = decimal.Parse(TextBoxCommission.Text.Trim());
+                        s = c;
+                    }
+
+                    if (File.Exists(sB.ToString()))
+                    {
+                        listeSal.Load(new SauvegardeXML(), Paramètres.Default.path);
+                    }
+
+                    if ( listeSal.Contains(s) ) // modification
+                    {
+                        listeSal.Remove(s);
+                    }
+                    listeSal.Add(s);
+
+                    listeSal.Save(new SauvegardeXML(), Paramètres.Default.path);
+                    Clear();
+                    InitListBoxSalarie(string.Empty);
+                }
+            }
+            catch(ApplicationException aE)
+            {
+                Debug.WriteLine(aE.Source);
+                //ErreurSaisie();
+            }
+        }
+
+        /// <summary>
+        /// event de quitter la fenetre
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EventButtonQuitterClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
         #endregion
 
-        #region méthode de classe
+        #region méthode de classe d'intialisation
+        /// <summary>
+        /// intialise le calendrier
+        /// </summary>
+        private void InitCalendar ()
+        {
+            DatePickerDateDeNaissance.DisplayDateStart = new DateTime(1900, 01, 01);
+            DatePickerDateDeNaissance.DisplayDateEnd = DateTime.Now.AddYears(-15);
+            DatePickerDateDeNaissance.DisplayDate = DateTime.Now.AddYears(-25);
+        }
+
         /// <summary>
         /// méthode de remplissage de la liste des salaries
-        /// pas top
         /// </summary>
-        /// <param name="nomSalarie">nom ou une partie du salarié</param>
+        /// <param name="nomSalarie">nom ou une partie du salarié / empty ou null charge tous les salariés</param>
         private void InitListBoxSalarie(string nomSalarie)
         {
             Salaries listeSalarie = new Salaries();
             StringBuilder sB = new StringBuilder(Paramètres.Default.path);
-            sB.Append($"{listeSalarie.GetType().FullName}.Xml");
+            sB.Append($@"\{listeSalarie.GetType().FullName}.Xml");
 
             if (File.Exists(sB.ToString()))
             {
@@ -77,8 +183,11 @@ namespace WpfAppGestionUtilisateur
                     ListBoxSalarie.ItemsSource = listeSalarie;
                 }
             } 
-            
         }
+
+        #endregion
+
+        #region méthode de classe
 
         /// <summary>
         /// méthode de vérification de certains champ saisie
@@ -99,11 +208,7 @@ namespace WpfAppGestionUtilisateur
                 case "TextBoxPrenom":
                     if ( !Salarie.IsNomPrenomValide(t.Text.Trim()) ) ErreurSaisie(sender);
                     break;
-                case "TextBoxSalaireBrut":
-
-                    break;
-            }
-            
+            } 
         }
 
         /// <summary>
@@ -118,17 +223,72 @@ namespace WpfAppGestionUtilisateur
             t.SelectionBrush = Brushes.Red;
         }
 
-
-        private void IsVerifDecimal ( object sender )
+        /// <summary>
+        /// arrete la saisie quand il rencontre une lettre
+        /// </summary>
+        /// <param name="e"></param>
+        private void IsVerifDecimal (TextCompositionEventArgs e)
         {
-            TextBox t = sender as TextBox;
-
+            /*e.Handled = e.Text.Any(x => char.IsLetter(x)) ? true : false;
+            e.Handled = e.Text.Any(x => x=='.') ? true : false;*/
+            e.Handled = e.Text.All(x => char.IsNumber(x) | x == ',') ? false : true;
         }
 
+        /// <summary>
+        /// vérifie les champs et renvoie un bool
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVerifChamp()
+        {
+            if ( !Salarie.IsMatriculeValide(TextBoxMatricule.Text.Trim()) )
+            {
+                ErreurSaisie(TextBoxMatricule);
+                return false;
+            }
+
+            if ( !Salarie.IsNomPrenomValide(TextBoxNom.Text.Trim()) )
+            {
+                ErreurSaisie(TextBoxNom);
+                return false;
+            }
+
+            if ( !Salarie.IsNomPrenomValide(TextBoxPrenom.Text.Trim()))
+            {
+                ErreurSaisie(TextBoxPrenom);
+                return false;
+            }
+
+            if (!Salarie.IsDateNaissanceValide(DatePickerDateDeNaissance.SelectedDate.Value))
+            {
+                ErreurSaisie(DatePickerDateDeNaissance);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// efface la fenêtre
+        /// </summary>
+        private void Clear()
+        {
+            TextBoxMatricule.Clear();
+            TextBoxNom.Clear();
+            TextBoxPrenom.Clear();
+            TextBoxSalaireBrut.Clear();
+            TextBoxSalaireNet.Clear();
+            DatePickerDateDeNaissance.Text=string.Empty;
+            CheckBoxCommercial.IsChecked = false;
+            TextBoxCommission.Clear();
+            TextBoxChiffreDAffaire.Clear();
+
+            TextBoxMatricule.Focus();
+        }
 
 
         #endregion
 
+       
 
+        
     }
 }
