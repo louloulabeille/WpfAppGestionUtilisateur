@@ -94,22 +94,7 @@ namespace WpfAppGestionUtilisateur
         /// <param name="e"></param>
         private void EventListBoxSalarieMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Salarie s = ListBoxSalarie.SelectedItem as Salarie;
-
-            if ( s is Commercial c)
-            {
-                CheckBoxCommercial.IsChecked = true;
-                TextBoxChiffreDAffaire.Text = c.ChiffreAffaire.ToString();
-                TextBoxCommission.Text = c.Commission.ToString();
-            }
-
-            TextBoxMatricule.Text = s.Matricule.ToString();
-            TextBoxNom.Text = s.Nom.ToString();
-            TextBoxPrenom.Text = s.Prenom.ToString();
-            TextBoxSalaireBrut.Text = s.SalaireBrut.ToString();
-            TextBoxSalaireNet.Text = s.SalaireNet.ToString();
-            TextBoxTauxCotisationSociale.Text = s.TauxCS.ToString();
-            DatePickerDateDeNaissance.SelectedDate = s.DateNaissance;
+            ChargeSalarie(sender);
         }
 
         /// <summary>
@@ -171,6 +156,30 @@ namespace WpfAppGestionUtilisateur
         #endregion
 
         #region méthode de classe
+
+        /// <summary>
+        /// récupère le salarie et l'affiche dans le formulaire
+        /// </summary>
+        private void ChargeSalarie (object sender) 
+        {
+            ListBox list =  sender as ListBox;
+            Salarie s = list.SelectedItem as Salarie;
+
+            if (s is Commercial c)
+            {
+                CheckBoxCommercial.IsChecked = true;
+                TextBoxChiffreDAffaire.Text = c.ChiffreAffaire.ToString();
+                TextBoxCommission.Text = c.Commission.ToString();
+            }
+
+            TextBoxMatricule.Text = s.Matricule.ToString();
+            TextBoxNom.Text = s.Nom.ToString();
+            TextBoxPrenom.Text = s.Prenom.ToString();
+            TextBoxSalaireBrut.Text = s.SalaireBrut.ToString();
+            TextBoxSalaireNet.Text = s.SalaireNet.ToString();
+            TextBoxTauxCotisationSociale.Text = s.TauxCS.ToString();
+            DatePickerDateDeNaissance.SelectedDate = s.DateNaissance;
+        }
 
         /// <summary>
         /// sauvegarde ou modifie le salarié
