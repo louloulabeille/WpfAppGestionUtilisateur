@@ -8,8 +8,11 @@
         mc:Ignorable="d"
         Title="Gestion salarié" Height="388" Width="800">
     <Grid Margin="0,1,0,-3">
-        <TextBox x:Name="TextBoxNomRecherche" HorizontalAlignment="Left" Height="23" Margin="559,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" LostFocus="EventTextBoxLostFocus"/>
-        <ListBox x:Name="ListBoxSalarie" HorizontalAlignment="Left" Height="174" Margin="559,36,0,0" VerticalAlignment="Top" Width="201">
+        <TextBox x:Name="TextBoxNomRecherche" HorizontalAlignment="Left" Height="23" Margin="559,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" LostFocus="EventTextBoxLostFocus" TextChanged="EventTextBoxNomRechercheTextChanged"/>
+        <ListBox x:Name="ListBoxSalarie" HorizontalAlignment="Left" Height="174" Margin="559,36,0,0" VerticalAlignment="Top" Width="201" MouseDoubleClick="EventListBoxSalarieMouseDoubleClick">
+            <ListBox.DataContext>
+                <SalariesDll:Salaries/>
+            </ListBox.DataContext>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0.2" HorizontalAlignment="Center">
@@ -36,7 +39,7 @@
         <TextBox x:Name="TextBoxNom" HorizontalAlignment="Left" Height="26" Margin="170,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" TextChanged="EventTextBoxVerificationTextChanged" LostFocus="EventTextBoxLostFocus"/>
         <TextBox x:Name="TextBoxPrenom" HorizontalAlignment="Left" Height="26" Margin="170,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" TextChanged="EventTextBoxVerificationTextChanged" LostFocus="EventTextBoxLostFocus"/>
         <TextBox x:Name="TextBoxSalaireBrut" HorizontalAlignment="Left" Height="26" Margin="170,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" AutomationProperties.ItemType="decimal" PreviewTextInput="EventTextBoxDecimalPreviewTextInput" LostFocus="EventTextBoxLostFocus"/>
-        <TextBox x:Name="TextBoxSalaireNet" HorizontalAlignment="Left" Height="26" Margin="170,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" PreviewTextInput="EventTextBoxDecimalPreviewTextInput" LostFocus="EventTextBoxLostFocus"/>
+        <TextBox x:Name="TextBoxSalaireNet" HorizontalAlignment="Left" Height="26" Margin="170,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" PreviewTextInput="EventTextBoxDecimalPreviewTextInput" LostFocus="EventTextBoxLostFocus" IsEnabled="False"/>
         <TextBox x:Name="TextBoxTauxCotisationSociale" HorizontalAlignment="Left" Height="26" Margin="170,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276" PreviewTextInput="EventTextBoxDecimalPreviewTextInput" LostFocus="EventTextBoxLostFocus"/>
         <DatePicker x:Name="DatePickerDateDeNaissance" HorizontalAlignment="Left" Margin="170,175,0,0" VerticalAlignment="Top" Width="276" Height="26"/>
         <Rectangle x:Name="RectangleCommercial" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="83" Margin="10,215,0,0" Stroke="Black" VerticalAlignment="Top" Width="445"/>

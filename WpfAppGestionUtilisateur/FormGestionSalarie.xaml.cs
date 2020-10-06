@@ -30,6 +30,7 @@ namespace WpfAppGestionUtilisateur
             InitListBoxSalarie(string.Empty);
             InitCalendar();
             IsVerifChamp();
+            TextBoxMatricule.Focus();
         }
 
         #region Event
@@ -91,20 +92,14 @@ namespace WpfAppGestionUtilisateur
                     Salaries listeSal = new Salaries();
                     
                     StringBuilder sB = new StringBuilder(Paramètres.Default.path);
-                    sB.Append($"{listeSal.GetType().FullName}.Xml");
+                    sB.Append($@"\{listeSal.GetType().FullName}.Xml");
 
-                    /*Salarie s = new Salarie(TextBoxNom.Text.Trim(), TextBoxPrenom.Text.Trim(), TextBoxMatricule.Text.Trim())
+                    Salarie s = new Salarie(TextBoxNom.Text.Trim(), TextBoxPrenom.Text.Trim(), TextBoxMatricule.Text.Trim())
                     {
                         DateNaissance = (DateTime)(DatePickerDateDeNaissance.SelectedDate),
                         SalaireBrut = decimal.Parse(TextBoxSalaireBrut.Text.Trim()),
                         TauxCS = decimal.Parse(TextBoxTauxCotisationSociale.Text.Trim()),
-                    };*/
-
-                    Salarie s = new Salarie(TextBoxNom.Text.Trim(), TextBoxPrenom.Text.Trim(), TextBoxMatricule.Text.Trim());
-                    s.DateNaissance = DatePickerDateDeNaissance.SelectedDate.Value;
-                    s.SalaireBrut = decimal.Parse(TextBoxSalaireBrut.Text.Trim());
-                    s.TauxCS = decimal.Parse(TextBoxTauxCotisationSociale.Text.Trim());
-
+                    };
                     s = (bool)CheckBoxCommercial.IsChecked ? new Commercial(s) : s;
 
                     if (s is Commercial c)
@@ -138,6 +133,31 @@ namespace WpfAppGestionUtilisateur
         }
 
         /// <summary>
+        /// event de copie entre la liste box et le reste du formulaire
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EventListBoxSalarieMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Salarie s = ListBoxSalarie.SelectedItem as Salarie;
+
+            if ( s is Commercial c)
+            {
+                CheckBoxCommercial.IsChecked = true;
+                TextBoxChiffreDAffaire.Text = c.ChiffreAffaire.ToString();
+                TextBoxCommission.Text = c.Commission.ToString();
+            }
+
+            TextBoxMatricule.Text = s.Matricule.ToString();
+            TextBoxNom.Text = s.Nom.ToString();
+            TextBoxPrenom.Text = s.Prenom.ToString();
+            TextBoxSalaireBrut.Text = s.SalaireBrut.ToString();
+            TextBoxSalaireNet.Text = s.SalaireNet.ToString();
+            TextBoxTauxCotisationSociale.Text = s.TauxCS.ToString();
+            DatePickerDateDeNaissance.SelectedDate = s.DateNaissance;
+        }
+
+        /// <summary>
         /// event de quitter la fenetre
         /// </summary>
         /// <param name="sender"></param>
@@ -147,6 +167,15 @@ namespace WpfAppGestionUtilisateur
             Close();
         }
 
+        /// <summary>
+        /// recharge la liste Box en prenant en argument le nom
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EventTextBoxNomRechercheTextChanged(object sender, TextChangedEventArgs e)
+        {
+            InitListBoxSalarie(TextBoxNomRecherche.Text.Trim());
+        }
         #endregion
 
         #region méthode de classe d'intialisation
@@ -179,8 +208,7 @@ namespace WpfAppGestionUtilisateur
                 }
                 else
                 {
-                    listeSalarie.SalariesNomCommencePar(nomSalarie);
-                    ListBoxSalarie.ItemsSource = listeSalarie;
+                    ListBoxSalarie.ItemsSource = listeSalarie.SalariesNomCommencePar(nomSalarie);
                 }
             } 
         }
@@ -231,7 +259,7 @@ namespace WpfAppGestionUtilisateur
         {
             /*e.Handled = e.Text.Any(x => char.IsLetter(x)) ? true : false;
             e.Handled = e.Text.Any(x => x=='.') ? true : false;*/
-            e.Handled = e.Text.All(x => char.IsNumber(x) | x == ',') ? false : true;
+            e.Handled = !e.Text.All(x => char.IsNumber(x) | x == ',');
         }
 
         /// <summary>
@@ -276,6 +304,7 @@ namespace WpfAppGestionUtilisateur
             TextBoxPrenom.Clear();
             TextBoxSalaireBrut.Clear();
             TextBoxSalaireNet.Clear();
+            TextBoxTauxCotisationSociale.Clear();
             DatePickerDateDeNaissance.Text=string.Empty;
             CheckBoxCommercial.IsChecked = false;
             TextBoxCommission.Clear();
@@ -283,12 +312,6 @@ namespace WpfAppGestionUtilisateur
 
             TextBoxMatricule.Focus();
         }
-
-
         #endregion
-
-       
-
-        
     }
 }

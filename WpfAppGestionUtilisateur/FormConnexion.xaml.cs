@@ -31,6 +31,7 @@ namespace WpfAppGestionUtilisateur
         public FormConnexion()
         {
             InitializeComponent();
+            TextBoxIdentifiant.Focus();
         }
 
         #region assesseur
