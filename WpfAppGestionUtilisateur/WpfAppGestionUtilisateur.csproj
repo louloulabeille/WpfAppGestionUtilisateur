@@ -60,6 +60,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FormGestionSalarie.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FormGestionUtilisateur.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -75,6 +79,9 @@
     <Compile Include="Connexion.cs" />
     <Compile Include="FormConnexion.xaml.cs">
       <DependentUpon>FormConnexion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormGestionSalarie.xaml.cs">
+      <DependentUpon>FormGestionSalarie.xaml</DependentUpon>
     </Compile>
     <Compile Include="FormGestionUtilisateur.xaml.cs">
       <DependentUpon>FormGestionUtilisateur.xaml</DependentUpon>

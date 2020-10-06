@@ -5,5 +5,17 @@
     <Setting Name="path" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Donnee</Value>
     </Setting>
+    <Setting Name="messageConnexion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Le mot de passe ou l'identifiant du compte n'est pas valide.</Value>
+    </Setting>
+    <Setting Name="titreMdiConnecte" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Gestion Salarié Connecté</Value>
+    </Setting>
+    <Setting Name="titreMdiBloque" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Gestion Salarié Compte Bloqué</Value>
+    </Setting>
+    <Setting Name="titreMdiNonConnecte" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Gestion Salarié Aucun compte Connecté</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

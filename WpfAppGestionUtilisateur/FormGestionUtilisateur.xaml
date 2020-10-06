@@ -40,6 +40,7 @@
             </ListBox>
         </GroupBox>
         <Label x:Name="LabelError" Content="" HorizontalAlignment="Left" Margin="20,214,0,0" VerticalAlignment="Top" Width="422" Height="47" Foreground="Red"/>
+        <TextBox x:Name="TextBoxNomRecherche" HorizontalAlignment="Left" Height="23" Margin="473,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="251" TextChanged="EventTextBoxNomRechercheTextChanged"/>
 
     </Grid>
 </Window>

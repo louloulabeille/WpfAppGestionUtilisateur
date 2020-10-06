@@ -28,7 +28,8 @@ namespace WpfAppGestionUtilisateur
         {
             InitializeComponent();
             GestionButton();
-            InitApplication();
+            Title = Paramètres.Default.titreMdiNonConnecte;
+            //InitApplication();
         }
 
         #region Event de la fenêtre
@@ -43,17 +44,30 @@ namespace WpfAppGestionUtilisateur
             //ouverture de la fenetre connexion
             //FormConnexion fC = new FormConnexion();
             FormConnexion fC = new FormConnexion();
-            StringBuilder sB = new StringBuilder(Title);
+            StringBuilder sB = new StringBuilder();
             if ( fC.ShowDialog().Equals(true) )
             {
-                sB.Append($" Connecté");
-                Title = sB.ToString();
+                if (Connexion._utilisateurconnecte.CompteBloque)
+                {
+                    sB.Append(Paramètres.Default.titreMdiBloque);
+                    Title = sB.ToString();
+                }
+                else
+                {
+                    sB.Append(Paramètres.Default.titreMdiConnecte);
+                    Title = sB.ToString();
+                }
             }
             else
             {
-                if (Connexion._utilisateurconnecte != null | Connexion._utilisateurconnecte.CompteBloque)
+                if ( Connexion._utilisateurconnecte == null )
                 {
-                    sB.Append($" Compte Bloqué");
+                    sB.Append(Paramètres.Default.titreMdiNonConnecte);
+                    Title = sB.ToString();
+                }
+                else
+                {
+                    sB.Append(Paramètres.Default.titreMdiConnecte);
                     Title = sB.ToString();
                 }
             }
@@ -70,6 +84,18 @@ namespace WpfAppGestionUtilisateur
             FormSingletonGestionUtilisateur fGU = FormSingletonGestionUtilisateur.Instance;
             fGU.Show();
         }
+        
+        /// <summary>
+        /// ouverture de la fenêtre gestion Salarie
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EventButtonSalarieClick(object sender, RoutedEventArgs e)
+        {
+            FormGestionSalarie fGS = new FormGestionSalarie();
+            fGS.Show();
+        }
+
         #endregion
 
 
@@ -161,6 +187,7 @@ namespace WpfAppGestionUtilisateur
             }
 
         }
+
         #endregion
 
 
@@ -188,5 +215,6 @@ namespace WpfAppGestionUtilisateur
 
         #endregion
 
+        
     }
 }

@@ -85,9 +85,6 @@ namespace SalariesDll
                 {
                   OnChangementSalaire(new ChangementSalaireEventArgs(ancienSalaire, 1M - ancienSalaire / value));
                 }
-                
-               
-
             }
 
         }

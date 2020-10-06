@@ -31,5 +31,53 @@ namespace WpfAppGestionUtilisateur {
                 return ((string)(this["path"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Le mot de passe ou l\'identifiant du compte n\'est pas valide.")]
+        public string messageConnexion {
+            get {
+                return ((string)(this["messageConnexion"]));
+            }
+            set {
+                this["messageConnexion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Gestion Salarié Connecté")]
+        public string titreMdiConnecte {
+            get {
+                return ((string)(this["titreMdiConnecte"]));
+            }
+            set {
+                this["titreMdiConnecte"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Gestion Salarié Compte Bloqué")]
+        public string titreMdiBloque {
+            get {
+                return ((string)(this["titreMdiBloque"]));
+            }
+            set {
+                this["titreMdiBloque"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Gestion Salarié Aucun compte Connecté")]
+        public string titreMdiNonConnecte {
+            get {
+                return ((string)(this["titreMdiNonConnecte"]));
+            }
+            set {
+                this["titreMdiNonConnecte"] = value;
+            }
+        }
     }
 }
