@@ -20,7 +20,11 @@ namespace SalariesDll
         public decimal ChiffreAffaire
         {
             get { return (this._chiffreAffaire); }
-            set { this._chiffreAffaire = value; }
+            set 
+            { 
+                this._chiffreAffaire = value;
+                RaisePropertyChanged("ChiffreAffaire");
+            }
         }
         /// <summary>
         /// Commpission pour calcul de la rémunération
@@ -28,7 +32,11 @@ namespace SalariesDll
         public decimal Commission
         {
             get { return (this._commission); }
-            set { this._commission = value; }
+            set 
+            { 
+                this._commission = value;
+                RaisePropertyChanged("Commission");
+            }
         }
 
         /// <summary>

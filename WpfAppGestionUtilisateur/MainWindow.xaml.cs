@@ -213,8 +213,18 @@ namespace WpfAppGestionUtilisateur
 
         }
 
+
         #endregion
 
-        
+        /// <summary>
+        /// ouverture du formulaire
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EventBtuttonSalarieDataBindingClick(object sender, RoutedEventArgs e)
+        {
+            SalariesDataBinding sDB = new SalariesDataBinding();
+            sDB.Show();
+        }
     }
 }

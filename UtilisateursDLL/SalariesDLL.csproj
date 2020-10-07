@@ -50,6 +50,7 @@
     <Compile Include="Roles.cs" />
     <Compile Include="Salarie.cs" />
     <Compile Include="Salaries.cs" />
+    <Compile Include="SalarieVue.cs" />
     <Compile Include="Utilisateur.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilisateurs.cs" />

@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using System.IO;
 
 using System.Globalization;
+using System.Collections.ObjectModel;
 
 namespace SalariesDll
 {
@@ -18,7 +19,8 @@ namespace SalariesDll
     /// 
     [Serializable]
     [XmlInclude(typeof(Commercial))]
-    public class Salaries : HashSet<Salarie>, ICollectionMetier
+    //public class Salaries : HashSet<Salarie>, ICollectionMetier
+    public class Salaries : ObservableCollection<Salarie>, ICollectionMetier
     {
         /// <summary>
         /// Ajouter un salarié
@@ -122,7 +124,8 @@ namespace SalariesDll
         /// <param name="pathRepData"></param>
         public void Load(Utilitaires.ISauvegarde sauvegarde, string pathRepData)
         {
-            this.SymmetricExceptWith((Salaries)sauvegarde.Load(pathRepData, this.GetType()));
+            //this.SymmetricExceptWith((Salaries)sauvegarde.Load(pathRepData, this.GetType()));
+            this.AddRange((Salaries)sauvegarde.Load(pathRepData, this.GetType()));
         }
     }
 }

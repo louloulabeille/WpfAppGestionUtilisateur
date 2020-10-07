@@ -9,10 +9,7 @@
         Title="Gestion salarié" Height="388" Width="800">
     <Grid Margin="0,1,0,-3">
         <TextBox x:Name="TextBoxNomRecherche" HorizontalAlignment="Left" Height="23" Margin="559,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" LostFocus="EventTextBoxLostFocus" TextChanged="EventTextBoxNomRechercheTextChanged"/>
-        <ListBox x:Name="ListBoxSalarie" HorizontalAlignment="Left" Height="174" Margin="559,36,0,0" VerticalAlignment="Top" Width="201" MouseDoubleClick="EventListBoxSalarieMouseDoubleClick">
-            <ListBox.DataContext>
-                <SalariesDll:Salaries/>
-            </ListBox.DataContext>
+        <ListBox x:Name="ListBoxSalarie" HorizontalAlignment="Left" Height="174" Margin="559,36,0,0" VerticalAlignment="Top" Width="201" MouseDoubleClick="EventListBoxSalarieMouseDoubleClick" ItemsSource="{Binding Path=Salaries}" Grid.Row="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0.2" HorizontalAlignment="Center">
@@ -28,7 +25,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Rectangle x:Name="RectangleSalarie" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="445"/>            <Label Content="Matricule :" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
+        <Rectangle x:Name="RectangleSalarie" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="445"/>            
+        <Label Content="Matricule :" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
         <Label Content="Nom :" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
         <Label Content="Prénom :" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
         <Label Content="Salaire brut :" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.474,0.077" Width="155"/>
