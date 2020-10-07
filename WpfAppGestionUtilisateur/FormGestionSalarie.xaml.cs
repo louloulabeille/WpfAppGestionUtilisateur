@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,8 +43,7 @@ namespace WpfAppGestionUtilisateur
         /// <param name="e"></param>
         private void EventTextBoxLostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox t = sender as TextBox;
-            t.Text = t.Text.Trim();
+            TrimTexBox(sender);
         }
 
         /// <summary>
@@ -75,6 +75,8 @@ namespace WpfAppGestionUtilisateur
         private void EventTextBoxDecimalPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             IsVerifDecimal(e);
+            //IsVerifSaisieDecimal(sender, e);
+
         }
 
         /// <summary>
@@ -115,6 +117,16 @@ namespace WpfAppGestionUtilisateur
         private void EventTextBoxNomRechercheTextChanged(object sender, TextChangedEventArgs e)
         {
             InitListBoxSalarie(TextBoxNomRecherche.Text.Trim());
+        }
+
+        /// <summary>
+        /// event de verification des décimaux
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EventTextBoxDecimalLostFocus(object sender, RoutedEventArgs e)
+        {
+            IsVerifSaisieDecimal(sender,e);
         }
         #endregion
 
@@ -158,6 +170,17 @@ namespace WpfAppGestionUtilisateur
         #region méthode de classe
 
         /// <summary>
+        ///  enlève les espaces dans les text box
+        ///  avant et après
+        /// </summary>
+        /// <param name="sender"></param>
+        private void TrimTexBox(object sender )
+        {
+            TextBox t = sender as TextBox;
+            t.Text = t.Text.Trim();
+        }
+
+        /// <summary>
         /// récupère le salarie et l'affiche dans le formulaire
         /// </summary>
         private void ChargeSalarie (object sender) 
@@ -186,72 +209,45 @@ namespace WpfAppGestionUtilisateur
         /// </summary>
         private void SauvegardeSalarie()
         {
-            try
+
+            if (IsVerifChamp())
             {
-                //object s = (bool)CheckBoxCommercial.IsChecked ? new Commercial():new Salarie();
-                if (IsVerifChamp())
+                Salaries listeSal = new Salaries();
+
+                StringBuilder sB = new StringBuilder(Paramètres.Default.path);
+                sB.Append($@"\{listeSal.GetType().FullName}.Xml");
+
+                Salarie s = new Salarie(TextBoxNom.Text.Trim(), TextBoxPrenom.Text.Trim(), TextBoxMatricule.Text.Trim())
                 {
-                    Salaries listeSal = new Salaries();
+                    DateNaissance = (DateTime)(DatePickerDateDeNaissance.SelectedDate),
+                    SalaireBrut = decimal.Parse(TextBoxSalaireBrut.Text.Trim()),
+                    TauxCS = decimal.Parse(TextBoxTauxCotisationSociale.Text.Trim()),
+                };
+                s = (bool)CheckBoxCommercial.IsChecked ? new Commercial(s) : s;
 
-                    StringBuilder sB = new StringBuilder(Paramètres.Default.path);
-                    sB.Append($@"\{listeSal.GetType().FullName}.Xml");
-
-                    Salarie s = new Salarie(TextBoxNom.Text.Trim(), TextBoxPrenom.Text.Trim(), TextBoxMatricule.Text.Trim())
-                    {
-                        DateNaissance = (DateTime)(DatePickerDateDeNaissance.SelectedDate),
-                        SalaireBrut = decimal.Parse(TextBoxSalaireBrut.Text.Trim()),
-                        TauxCS = decimal.Parse(TextBoxTauxCotisationSociale.Text.Trim()),
-                    };
-                    s = (bool)CheckBoxCommercial.IsChecked ? new Commercial(s) : s;
-
-                    if (s is Commercial c)
-                    {
-                        c.ChiffreAffaire = decimal.Parse(TextBoxChiffreDAffaire.Text.Trim());
-                        c.Commission = decimal.Parse(TextBoxCommission.Text.Trim());
-                        s = c;
-                    }
-
-                    if (File.Exists(sB.ToString()))
-                    {
-                        listeSal.Load(new SauvegardeXML(), Paramètres.Default.path);
-                    }
-
-                    if (listeSal.Contains(s)) // modification
-                    {
-                        listeSal.Remove(s);
-                    }
-                    listeSal.Add(s);
-
-                    listeSal.Save(new SauvegardeXML(), Paramètres.Default.path);
-                    Clear();
-                    InitListBoxSalarie(string.Empty);
+                if (s is Commercial c)
+                {
+                    c.ChiffreAffaire = decimal.Parse(TextBoxChiffreDAffaire.Text.Trim());
+                    c.Commission = decimal.Parse(TextBoxCommission.Text.Trim());
+                    s = c;
                 }
-            }
-            catch (ApplicationException aE)
-            {
-                Debug.WriteLine(aE.InnerException);
-            }
-            catch (Exception eX)
-            {
-                Debug.WriteLine(eX.TargetSite);
-                Debug.WriteLine("-----------------");
-                Debug.WriteLine(eX.InnerException);
-                Debug.WriteLine("-----------------");
-                Debug.WriteLine(eX.StackTrace);
-                Debug.WriteLine("-----------------");
-                Debug.WriteLine(eX.Message);
-                Debug.WriteLine("-----------------");
-                Debug.WriteLine(eX.Data);
-                Debug.WriteLine("-----------------");
-                Debug.WriteLine(eX.HelpLink);
-                Debug.WriteLine("-----------------");
-                Debug.WriteLine(eX.HResult);
-                Debug.WriteLine("-----------------");
-                Debug.WriteLine(eX.Source);
-                Debug.WriteLine("-----------------");
+
+                if (File.Exists(sB.ToString()))
+                {
+                    listeSal.Load(new SauvegardeXML(), Paramètres.Default.path);
+                }
+
+                if (listeSal.Contains(s)) // modification
+                {
+                    listeSal.Remove(s);
+                }
+                listeSal.Add(s);
+
+                listeSal.Save(new SauvegardeXML(), Paramètres.Default.path);
+                Clear();
+                InitListBoxSalarie(string.Empty);
             }
         }
-
 
         /// <summary>
         /// méthode de vérification de certains champ saisie
@@ -288,14 +284,31 @@ namespace WpfAppGestionUtilisateur
         }
 
         /// <summary>
-        /// arrete la saisie quand il rencontre une lettre
+        /// verifie la saisie des décimaux à la sortie
+        /// du textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        private void IsVerifSaisieDecimal (object sender , RoutedEventArgs e)
+        {
+            string pattern = @"^[0-9]+[,]?[0-9]{0,}$";
+            Regex rGX = new Regex(pattern);
+            TextBox t = sender as TextBox;
+            TrimTexBox(sender);
+            
+            if ( !rGX.IsMatch(t.Text) )
+            {
+                t.Text = String.Empty;
+            }
+        }
+        /// <summary>
+        /// arrete la saisie quand il rencontre une lettre ou autre
         /// </summary>
         /// <param name="e"></param>
         private void IsVerifDecimal (TextCompositionEventArgs e)
         {
             /*e.Handled = e.Text.Any(x => char.IsLetter(x)) ? true : false;
             e.Handled = e.Text.Any(x => x=='.') ? true : false;*/
-            e.Handled = !e.Text.All(x => char.IsNumber(x) | x == ',');
+            e.Handled = !e.Text.All( (x => char.IsNumber(x)| x == ',') ) ;
         }
 
         /// <summary>
@@ -327,6 +340,15 @@ namespace WpfAppGestionUtilisateur
                 ErreurSaisie(DatePickerDateDeNaissance);
                 return false;
             }
+            if ( string.IsNullOrEmpty(TextBoxSalaireBrut.Text.Trim()) | string.IsNullOrEmpty(TextBoxTauxCotisationSociale.Text.Trim()))
+            {
+                return false;
+            }
+            if ( (bool)CheckBoxCommercial.IsChecked & (string.IsNullOrEmpty(TextBoxCommission.Text.Trim()) | string.IsNullOrEmpty(TextBoxChiffreDAffaire.Text.Trim() ) ))
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -349,5 +371,7 @@ namespace WpfAppGestionUtilisateur
             TextBoxMatricule.Focus();
         }
         #endregion
+
+        
     }
 }
