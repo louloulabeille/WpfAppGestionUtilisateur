@@ -24,16 +24,17 @@
         </ListBox>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="169" Margin="23,50,0,0" Stroke="Black" VerticalAlignment="Top" Width="417"/>
         <Label Content="Matricule :" HorizontalAlignment="Left" Height="23" Margin="24,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
-        <TextBox x:Name="TextBoxMatricule" HorizontalAlignment="Left" Height="23" Margin="148,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding ElementName=ListBoxSalaries,Path=SelectedValue.Matricule}"/>
-        <TextBox x:Name="TextBoxNom" HorizontalAlignment="Left" Height="23" Margin="148,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding ElementName=ListBoxSalaries,Path=SelectedValue.Nom}"/>
+        <TextBox x:Name="TextBoxMatricule" HorizontalAlignment="Left" Height="23" Margin="148,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.Matricule,ElementName=ListBoxSalaries}"/>
+        <TextBox x:Name="TextBoxNom" HorizontalAlignment="Left" Height="23" Margin="148,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding Path=SelectedValue.Nom,ElementName=ListBoxSalaries}"/>
         <TextBox x:Name="TextBoxPrenom" HorizontalAlignment="Left" Height="23" Margin="148,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.Prenom, ElementName=ListBoxSalaries}"/>
         <TextBox x:Name="TextBoxSalaireBrut" HorizontalAlignment="Left" Height="23" Margin="148,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.SalaireBrut, ElementName=ListBoxSalaries}"/>
         <TextBox x:Name="TextBoxSalaireNet" HorizontalAlignment="Left" Height="23" Margin="148,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" IsEnabled="False"/>
         <TextBox x:Name="TextBoxTauxCS" HorizontalAlignment="Left" Height="23" Margin="148,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.TauxCS, ElementName=ListBoxSalaries}"/>
-        <CheckBox x:Name="CheckBoxCommercial" Content="Commercial" HorizontalAlignment="Left" Margin="30,231,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBoxChiffreDAffaire" HorizontalAlignment="Left" Height="23" Margin="148,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.ChiffreAffaire, ElementName=ListBoxSalaries}"/>
-
-        
+        <CheckBox x:Name="CheckBoxCommercial" Content="Commercial" HorizontalAlignment="Left" Margin="30,231,0,0" VerticalAlignment="Top" IsChecked="{Binding }">
+            
+        </CheckBox>
+        <TextBox x:Name="TextBoxChiffreDAffaire" HorizontalAlignment="Left" Height="23" Margin="148,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.ChiffreAffaire, ElementName=ListBoxSalaries}"/>
+        <TextBox x:Name="TextBoxCommission" HorizontalAlignment="Left" Height="23" Margin="148,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.Commission, ElementName=ListBoxSalaries}"/>
         <Button x:Name="ButtonQuitter" Content="Quitter" HorizontalAlignment="Left" Height="37" Margin="24,338,0,0" VerticalAlignment="Top" Width="110"/>
         <Label Content="Nom :" HorizontalAlignment="Left" Height="23" Margin="24,85,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
         <Label Content="Prénom :" HorizontalAlignment="Left" Height="23" Margin="24,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
@@ -41,6 +42,6 @@
         <Label Content="Salaire net :" HorizontalAlignment="Left" Height="23" Margin="24,159,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
         <Label Content="Taux sécurité sociale :" HorizontalAlignment="Left" Height="23" Margin="24,184,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="124"/>
         <Label Content="Chiffre d'affaire :" HorizontalAlignment="Left" Height="23" Margin="24,253,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="124"/>
-        
+        <Label Content="Commission :" HorizontalAlignment="Left" Height="23" Margin="24,277,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="124"/>
     </Grid>
 </Window>

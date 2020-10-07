@@ -28,8 +28,9 @@ namespace WpfAppGestionUtilisateur
             sV.ListSalaries.Load(new SauvegardeXML(), Paramètres.Default.path);
 
             InitializeComponent();
-            
             DataContext = sV;
+
+
         }
     }
 }

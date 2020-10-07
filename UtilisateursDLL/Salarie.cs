@@ -124,9 +124,8 @@ namespace SalariesDll
             {
                 if ((value < 0) || (value > 0.6m))
                 {
-                    throw new Exception(string.Format(CultureInfo.CurrentCulture, "Le taux {0} n'est pas acceptable. \nIl doit être compris entre 0 et 0.6", value));
+                    throw new ApplicationException(string.Format(CultureInfo.CurrentCulture, "Le taux {0} n'est pas acceptable. \nIl doit être compris entre 0 et 0.6", value));
                 }
-
                 else
                 {
                     this._tauxCS = value;
