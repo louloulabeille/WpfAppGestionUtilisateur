@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Xml.Serialization;
 using Utilitaires;
 using WpfAppGestionUtilisateur;
@@ -18,7 +19,7 @@ namespace WpfAppGestionUtilisateur.ViewModel
         private DateTime _dateDebut;
         private DateTime _dateFin;
         private readonly Salaries db;
-        private readonly ObservableCollection<SalarieViewModel> _listeSalarie;
+        private ObservableCollection<SalarieViewModel> _listeSalarie;
         private readonly ICollectionView collectionView;
         private ICommand addCommand;
         private ICommand removeCommand;
@@ -83,6 +84,14 @@ namespace WpfAppGestionUtilisateur.ViewModel
         {
             DateDebut = new DateTime(1900, 1, 1);
             DateFin = DateTime.Today.AddYears(-15);
+        }
+
+        public ObservableCollection<SalarieViewModel> ListeSalarie
+        {
+            get
+            {
+                return _listeSalarie; 
+            }
         }
         #endregion
 
