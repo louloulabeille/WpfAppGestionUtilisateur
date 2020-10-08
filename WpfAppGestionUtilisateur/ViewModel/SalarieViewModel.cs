@@ -8,7 +8,7 @@ using System.Windows.Media.Animation;
 
 namespace WpfAppGestionUtilisateur.ViewModel
 {
-    class SalarieViewModel : ViewModelBase
+    public class SalarieViewModel : ViewModelBase
     {
         private readonly Salarie salarie;
 

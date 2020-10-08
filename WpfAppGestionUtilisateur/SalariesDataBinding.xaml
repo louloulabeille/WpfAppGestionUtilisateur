@@ -17,7 +17,7 @@
                 </Style.Triggers>
             </Style>
         </Grid.Resources>
-        <ListBox x:Name="ListBoxSalaries" HorizontalAlignment="Left" Height="205" Margin="554,50,0,0" VerticalAlignment="Top" Width="213" ItemsSource="{Binding Path=ListSalaries}" >
+        <ListBox x:Name="ListBoxSalaries" HorizontalAlignment="Left" Height="205" Margin="554,50,0,0" VerticalAlignment="Top" Width="213" ItemsSource="{Binding Path=ListSalarie}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0.2" HorizontalAlignment="Center">

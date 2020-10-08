@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WpfAppGestionUtilisateur.ViewModel
 {
-    class CommercialViewModel : SalarieViewModel
+    public class CommercialViewModel : SalarieViewModel
     {
         private readonly Commercial commercial;
 
@@ -24,17 +24,17 @@ namespace WpfAppGestionUtilisateur.ViewModel
         {
             get
             {
-                return this.commercial;
+                return commercial;
             }
         }
 
-        public bool IsCommercial
+        /*public bool IsCommercial
         {
             get
             {
                 return this.commercial is Commercial;
             }
-        }
+        }*/
 
         public decimal Commission
         {

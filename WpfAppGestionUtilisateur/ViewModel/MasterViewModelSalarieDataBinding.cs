@@ -19,7 +19,7 @@ namespace WpfAppGestionUtilisateur.ViewModel
         private DateTime _dateDebut;
         private DateTime _dateFin;
         private readonly Salaries db;
-        private ObservableCollection<SalarieViewModel> _listeSalarie;
+        private ObservableCollection<SalarieViewModel> _listSalarie;
         private readonly ICollectionView collectionView;
         private ICommand addCommand;
         private ICommand removeCommand;
@@ -34,13 +34,13 @@ namespace WpfAppGestionUtilisateur.ViewModel
         public MasterViewModelSalarieDataBinding (Salaries dataSalarie)
         {
             this.db = dataSalarie;
-            this._listeSalarie = new ObservableCollection<SalarieViewModel>();
+            this._listSalarie = new ObservableCollection<SalarieViewModel>();
             this.db.Load(new SauvegardeXML(), Paramètres.Default.path);
 
             foreach ( Salarie item in this.db)
             {
                 SalarieViewModel sVM = new SalarieViewModel(item);
-                this._listeSalarie.Add(sVM);
+                this.ListSalarie.Add(sVM);
             }
 
             InitClasseVue();
@@ -74,6 +74,11 @@ namespace WpfAppGestionUtilisateur.ViewModel
                 RaisePropertyChanged("DateFin");
             }
         }
+
+        /// <summary>
+        /// assesseur
+        /// </summary>
+        public ObservableCollection<SalarieViewModel> ListSalarie { get => _listSalarie; }
         #endregion
 
         #region méthode de classe
@@ -86,13 +91,7 @@ namespace WpfAppGestionUtilisateur.ViewModel
             DateFin = DateTime.Today.AddYears(-15);
         }
 
-        public ObservableCollection<SalarieViewModel> ListeSalarie
-        {
-            get
-            {
-                return _listeSalarie; 
-            }
-        }
+        
         #endregion
 
     }
