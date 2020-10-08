@@ -81,7 +81,7 @@ namespace WpfAppGestionUtilisateur
         /// <param name="e"></param>
         private void EventOpenUtilisateur(object sender, RoutedEventArgs e)
         {
-            FormSingletonGestionUtilisateur fGU = FormSingletonGestionUtilisateur.Instance;
+            FormSingletonGestionUtilisateur fGU = FormSingletonGestionUtilisateur.GetInstance();
             fGU.Show();
         }
         
@@ -94,6 +94,18 @@ namespace WpfAppGestionUtilisateur
         {
             FormGestionSalarie fGS = new FormGestionSalarie();
             fGS.Show();
+        }
+
+
+        /// <summary>
+        /// ouverture du formulaire
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EventBtuttonSalarieDataBindingClick(object sender, RoutedEventArgs e)
+        {
+            SalariesDataBinding sDB = new SalariesDataBinding();
+            sDB.Show();
         }
 
         #endregion
@@ -199,32 +211,18 @@ namespace WpfAppGestionUtilisateur
 
             private FormSingletonGestionUtilisateur() { }
 
-            public static FormSingletonGestionUtilisateur Instance
+            public static FormSingletonGestionUtilisateur GetInstance()
             {
-                get
+                if (_instance == null)
                 {
-                    if (_instance == null)
-                    {
-                        _instance = new FormSingletonGestionUtilisateur();
-                    }
-                    return _instance;
+                    _instance = new FormSingletonGestionUtilisateur();
                 }
+                return _instance;
             }
-
         }
 
 
         #endregion
 
-        /// <summary>
-        /// ouverture du formulaire
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void EventBtuttonSalarieDataBindingClick(object sender, RoutedEventArgs e)
-        {
-            SalariesDataBinding sDB = new SalariesDataBinding();
-            sDB.Show();
-        }
     }
 }

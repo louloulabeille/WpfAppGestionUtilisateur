@@ -59,6 +59,11 @@
     <Compile Include="SalariesDataBinding.xaml.cs">
       <DependentUpon>SalariesDataBinding.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CommercialViewModel.cs" />
+    <Compile Include="ViewModel\SalarieViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\MasterViewModelSalarieDataBinding.cs" />
+    <Compile Include="View\Validation.cs" />
     <Page Include="FormConnexion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -143,5 +148,6 @@
       <Name>Utilitaires</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

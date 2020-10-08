@@ -3,10 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfAppGestionUtilisateur"
-        mc:Ignorable="d" Height="422.529" Width="788.226" Title="Gestion des Salaries">
+        xmlns:local="clr-namespace:WpfAppGestionUtilisateur.ViewModel"
+        mc:Ignorable="d" Height="422.529" Width="788.226" Title="Gestion des Salaries"
+>
     <Grid Margin="0,0,2,1">
-        <ListBox x:Name="ListBoxSalaries" HorizontalAlignment="Left" Height="205" Margin="554,50,0,0" VerticalAlignment="Top" Width="213" ItemsSource="{Binding Path=ListSalaries}">
+        <Grid.Resources>
+            <Style TargetType="TextBox">
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="True">
+                        <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                        <Setter Property="Foreground" Value="Red"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <ListBox x:Name="ListBoxSalaries" HorizontalAlignment="Left" Height="205" Margin="554,50,0,0" VerticalAlignment="Top" Width="213" ItemsSource="{Binding Path=ListSalaries}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0.2" HorizontalAlignment="Center">
@@ -22,26 +33,30 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="169" Margin="23,50,0,0" Stroke="Black" VerticalAlignment="Top" Width="417"/>
-        <Label Content="Matricule :" HorizontalAlignment="Left" Height="23" Margin="24,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
-        <TextBox x:Name="TextBoxMatricule" HorizontalAlignment="Left" Height="23" Margin="148,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.Matricule,ElementName=ListBoxSalaries}"/>
-        <TextBox x:Name="TextBoxNom" HorizontalAlignment="Left" Height="23" Margin="148,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding Path=SelectedValue.Nom,ElementName=ListBoxSalaries}"/>
-        <TextBox x:Name="TextBoxPrenom" HorizontalAlignment="Left" Height="23" Margin="148,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.Prenom, ElementName=ListBoxSalaries}"/>
-        <TextBox x:Name="TextBoxSalaireBrut" HorizontalAlignment="Left" Height="23" Margin="148,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.SalaireBrut, ElementName=ListBoxSalaries}"/>
-        <TextBox x:Name="TextBoxSalaireNet" HorizontalAlignment="Left" Height="23" Margin="148,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" IsEnabled="False"/>
-        <TextBox x:Name="TextBoxTauxCS" HorizontalAlignment="Left" Height="23" Margin="148,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.TauxCS, ElementName=ListBoxSalaries}"/>
-        <CheckBox x:Name="CheckBoxCommercial" Content="Commercial" HorizontalAlignment="Left" Margin="30,231,0,0" VerticalAlignment="Top" IsChecked="{Binding }">
-            
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="196" Margin="23,23,0,0" Stroke="Black" VerticalAlignment="Top" Width="417"/>
+        <Label Content="Matricule :" HorizontalAlignment="Left" Height="23" Margin="24,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
+        <TextBox x:Name="TextBoxMatricule" HorizontalAlignment="Left" Height="23" Margin="148,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.Matricule,ElementName=ListBoxSalaries,UpdateSourceTrigger=PropertyChanged,ValidatesOnExceptions=True}"/>
+        <TextBox x:Name="TextBoxNom" HorizontalAlignment="Left" Height="23" Margin="148,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding Path=SelectedValue.Nom,ElementName=ListBoxSalaries,UpdateSourceTrigger=PropertyChanged,ValidatesOnExceptions=True}"/>
+        <TextBox x:Name="TextBoxPrenom" HorizontalAlignment="Left" Height="23" Margin="148,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.Prenom, ElementName=ListBoxSalaries,UpdateSourceTrigger=PropertyChanged,ValidatesOnExceptions=True}"/>
+        <TextBox x:Name="TextBoxSalaireBrut" HorizontalAlignment="Left" Height="23" Margin="148,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.SalaireBrut, ElementName=ListBoxSalaries}"/>
+        <TextBox x:Name="TextBoxSalaireNet" HorizontalAlignment="Left" Height="23" Margin="148,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" IsEnabled="False"/>
+        <TextBox x:Name="TextBoxTauxCS" HorizontalAlignment="Left" Height="23" Margin="148,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.TauxCS, ElementName=ListBoxSalaries}"/>
+        <DatePicker x:Name="DatePickerDateNaissance" HorizontalAlignment="Left" Margin="149,183,0,0" Height="23" VerticalAlignment="Top" Width="284" DisplayDateStart="{Binding Path=DateDebut,Mode=OneTime}" DisplayDateEnd="{Binding Path=DateFin,Mode=OneTime}"/>
+        <CheckBox x:Name="CheckBoxCommercial" Content="Commercial" HorizontalAlignment="Left" Margin="30,231,0,0" VerticalAlignment="Top">
         </CheckBox>
         <TextBox x:Name="TextBoxChiffreDAffaire" HorizontalAlignment="Left" Height="23" Margin="148,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.ChiffreAffaire, ElementName=ListBoxSalaries}"/>
         <TextBox x:Name="TextBoxCommission" HorizontalAlignment="Left" Height="23" Margin="148,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Text="{Binding SelectedValue.Commission, ElementName=ListBoxSalaries}"/>
         <Button x:Name="ButtonQuitter" Content="Quitter" HorizontalAlignment="Left" Height="37" Margin="24,338,0,0" VerticalAlignment="Top" Width="110"/>
-        <Label Content="Nom :" HorizontalAlignment="Left" Height="23" Margin="24,85,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
-        <Label Content="Prénom :" HorizontalAlignment="Left" Height="23" Margin="24,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
-        <Label Content="Salaire brut :" HorizontalAlignment="Left" Height="23" Margin="24,134,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
-        <Label Content="Salaire net :" HorizontalAlignment="Left" Height="23" Margin="24,159,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
-        <Label Content="Taux sécurité sociale :" HorizontalAlignment="Left" Height="23" Margin="24,184,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="124"/>
+        <Label Content="Nom :" HorizontalAlignment="Left" Height="23" Margin="24,58,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
+        <Label Content="Prénom :" HorizontalAlignment="Left" Height="23" Margin="24,83,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
+        <Label Content="Salaire brut :" HorizontalAlignment="Left" Height="23" Margin="24,107,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
+        <Label Content="Salaire net :" HorizontalAlignment="Left" Height="23" Margin="24,132,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="110"/>
+        <Label Content="Taux sécurité sociale :" HorizontalAlignment="Left" Height="23" Margin="24,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="124"/>
         <Label Content="Chiffre d'affaire :" HorizontalAlignment="Left" Height="23" Margin="24,253,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="124"/>
         <Label Content="Commission :" HorizontalAlignment="Left" Height="23" Margin="24,277,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="124"/>
+        <Label Content="Taux sécurité sociale :" HorizontalAlignment="Left" Height="23" Margin="24,183,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.207,0.256" Width="124"/>
+        <Button x:Name="ButtonAjouter" Content="Ajouter" HorizontalAlignment="Left" Margin="463,52,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.36,0.05" Height="37"/>
+        <TextBox x:Name="TextBoxRecherche" HorizontalAlignment="Left" Height="23" Margin="553,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214"/>
+
     </Grid>
 </Window>

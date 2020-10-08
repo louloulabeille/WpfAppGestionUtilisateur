@@ -23,7 +23,6 @@ namespace SalariesDll
             set 
             { 
                 this._chiffreAffaire = value;
-                RaisePropertyChanged("ChiffreAffaire");
             }
         }
         /// <summary>
@@ -35,7 +34,6 @@ namespace SalariesDll
             set 
             { 
                 this._commission = value;
-                RaisePropertyChanged("Commission");
             }
         }
 

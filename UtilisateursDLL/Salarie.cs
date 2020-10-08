@@ -13,13 +13,10 @@ namespace SalariesDll
     /// Type Salarie
     /// </summary>
     [Serializable]
-    public class Salarie: INotifyPropertyChanged
+    public class Salarie //: INotifyPropertyChanged
     {
 
         #region Champs privés
-
-       
-       
         private string _matricule;
         private string _nom = string.Empty;
         private string _prenom = string.Empty;
@@ -37,8 +34,9 @@ namespace SalariesDll
         /// <summary>
         /// evenement Data Binding  sur les chamgements des propiétés de la classe
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        // public event PropertyChangedEventHandler PropertyChanged;
         #endregion
+
         #region Propriétés
 
         /// <summary>
@@ -51,7 +49,7 @@ namespace SalariesDll
             {
                 if (!IsMatriculeValide(value)) throw new ApplicationException(string.Format(CultureInfo.CurrentCulture, "Le matricule {0} n'est pas valide.", value));
                 this._matricule = value;
-                RaisePropertyChanged("Matricule");
+                //RaisePropertyChanged("Matricule");
             }
         }
         /// <summary>
@@ -65,7 +63,7 @@ namespace SalariesDll
             {
                 if (!IsNomPrenomValide(value)) throw new ApplicationException(string.Format(CultureInfo.CurrentCulture, "Le nom {0} n'est pas valide.", value)); ;
                 this._nom = string.Format(CultureInfo.CurrentCulture, "{0}{1}", value.Trim().Substring(0, 1).ToUpper(CultureInfo.CurrentCulture), value.Trim().Substring(1, value.Trim().Length - 1).ToLower(CultureInfo.CurrentCulture));
-                RaisePropertyChanged("Nom");
+                //RaisePropertyChanged("Nom");
             }
         }
         /// <summary>
@@ -78,7 +76,7 @@ namespace SalariesDll
             {
                 if (!IsNomPrenomValide(value)) throw new ApplicationException(string.Format(CultureInfo.CurrentCulture, "Le prénom {0} n'est pas valide.", value)); ;
                 this._prenom = string.Format(CultureInfo.CurrentCulture, "{0}{1}", value.Trim().Substring(0, 1).ToUpper(CultureInfo.CurrentCulture), value.Trim().Substring(1, value.Trim().Length - 1).ToLower(CultureInfo.CurrentCulture));
-                RaisePropertyChanged("Prenom");
+                //RaisePropertyChanged("Prenom");
             }
         }
         /// <summary>
@@ -95,7 +93,7 @@ namespace SalariesDll
                 {
                   OnChangementSalaire(new ChangementSalaireEventArgs(ancienSalaire, 1M - ancienSalaire / value));
                 }
-                RaisePropertyChanged("SalaireBrut");
+                //RaisePropertyChanged("SalaireBrut");
             }
 
         }
@@ -129,7 +127,7 @@ namespace SalariesDll
                 else
                 {
                     this._tauxCS = value;
-                    RaisePropertyChanged("TauxCS");
+                    //RaisePropertyChanged("TauxCS");
                 }
             }
         }
@@ -148,7 +146,7 @@ namespace SalariesDll
                    value,new DateTime(1900,01,01),DateTime.Today.AddYears(-15)));
                 }
                 else this._dateNaissance = value;
-                RaisePropertyChanged("DateNaissance");
+                //RaisePropertyChanged("DateNaissance");
             }
         }
 
@@ -168,13 +166,13 @@ namespace SalariesDll
         /// pour le changement dans les champs
         /// </summary>
         /// <param name="property"></param>
-        protected virtual void RaisePropertyChanged(string property)
+        /*protected virtual void RaisePropertyChanged(string property)
         {
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
-        }
+        }*/
 
         /// <summary>
         /// Verification de la conformite de la saisie pour les noms et prenoms.

@@ -1,5 +1,4 @@
 ﻿using SalariesDll;
-using SalariesVueDll;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Utilitaires;
+using WpfAppGestionUtilisateur.ViewModel;
 
 namespace WpfAppGestionUtilisateur
 {
@@ -24,12 +24,9 @@ namespace WpfAppGestionUtilisateur
     {
         public SalariesDataBinding()
         {
-            SalarieVue sV = new SalarieVue();
-            sV.ListSalaries.Load(new SauvegardeXML(), Paramètres.Default.path);
-
+            Salaries db = new Salaries();
+            DataContext = new MasterViewModelSalarieDataBinding(db);
             InitializeComponent();
-            DataContext = sV;
-
 
         }
     }
