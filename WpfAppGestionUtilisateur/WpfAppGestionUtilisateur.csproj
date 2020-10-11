@@ -60,9 +60,13 @@
       <DependentUpon>SalariesDataBinding.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\CommercialViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\SalarieViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\MasterViewModelSalarieDataBinding.cs" />
+    <Compile Include="View\Page_Salarie.xaml.cs">
+      <DependentUpon>Page_Salarie.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Validation.cs" />
     <Page Include="FormConnexion.xaml">
       <SubType>Designer</SubType>
@@ -99,6 +103,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SalariesDataBinding.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Page_Salarie.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

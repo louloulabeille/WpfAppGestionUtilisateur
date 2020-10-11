@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Xml.Serialization;
@@ -22,10 +23,6 @@ namespace WpfAppGestionUtilisateur.ViewModel
         private ObservableCollection<SalarieViewModel> _listSalarie;
         private readonly ICollectionView collectionView;
         private ICommand addCommand;
-        private ICommand removeCommand;
-        private ICommand previousCommand;
-        private ICommand nextCommand;
-
 
         #region constructeur
         /// <summary>
@@ -43,11 +40,27 @@ namespace WpfAppGestionUtilisateur.ViewModel
                 this.ListSalarie.Add(sVM);
             }
 
+            this.collectionView = CollectionViewSource.GetDefaultView(this._listSalarie);
+            if (this.collectionView == null) { throw new NullReferenceException("collectionView"); };
+
+            this.collectionView.CurrentChanged += new EventHandler(this.OnCollectionViewCurrentChanged);
+
             InitClasseVue();
         }
         #endregion
 
         #region assesseur
+
+        public ICommand AddCommand
+        {
+            get
+            {
+                if (this.addCommand != null)
+                {
+                    this.addCommand = new RelayCommand(() => this.AddSalarie(), () => this.ChangeSalarie());
+                }
+            }
+        }
 
         /// <summary>
         /// assesseur date de debut du dateTimepicker
@@ -79,6 +92,14 @@ namespace WpfAppGestionUtilisateur.ViewModel
         /// assesseur
         /// </summary>
         public ObservableCollection<SalarieViewModel> ListSalarie { get => _listSalarie; }
+
+        /// <summary>
+        /// assesseur retourne la personne sélectionner de la collections
+        /// </summary
+        public SalarieViewModel SelectedSalarie
+        {
+            get { return this.collectionView.CurrentItem as SalarieViewModel; }
+        }
         #endregion
 
         #region méthode de classe
@@ -91,7 +112,26 @@ namespace WpfAppGestionUtilisateur.ViewModel
             DateFin = DateTime.Today.AddYears(-15);
         }
 
-        
+        /// <summary>
+        /// méthode pour event qui appelle un autre event pour le changement
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnCollectionViewCurrentChanged(object sender, EventArgs e) 
+        {
+            RaisePropertyChanged("SelectedSalarie");
+        }
+
+        private void AddSalarie ()
+        {
+            Salarie s = new Salarie()
+            {
+                Matricule = "Matricule",
+
+            };
+            this.db.Add(s);
+        }
+
         #endregion
 
     }
