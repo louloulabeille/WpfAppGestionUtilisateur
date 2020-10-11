@@ -23,6 +23,8 @@ namespace WpfAppGestionUtilisateur.ViewModel
         private ObservableCollection<SalarieViewModel> _listSalarie;
         private readonly ICollectionView collectionView;
         private ICommand addCommand;
+        private ICommand changeCommand;
+
 
         #region constructeur
         /// <summary>
@@ -57,10 +59,24 @@ namespace WpfAppGestionUtilisateur.ViewModel
             {
                 if (this.addCommand != null)
                 {
-                    this.addCommand = new RelayCommand(() => this.AddSalarie(), () => this.ChangeSalarie());
+                    this.addCommand = new RelayCommand(() => this.AddSalarie());
                 }
+                return this.addCommand;
             }
         }
+
+        public ICommand ChangeCommand
+        {
+            get
+            {
+                if (this.changeCommand != null)
+                {
+                    this.changeCommand = new RelayCommand(() => this.ChangeSalarie());
+                }
+                return this.changeCommand;
+            }
+        }
+
 
         /// <summary>
         /// assesseur date de debut du dateTimepicker
@@ -129,6 +145,17 @@ namespace WpfAppGestionUtilisateur.ViewModel
                 Matricule = "Matricule",
 
             };
+            this.db.Add(s);
+        }
+
+        private void ChangeSalarie()
+        {
+            Salarie s = new Salarie()
+            {
+                Matricule = "Matricule",
+
+            };
+            this.db.Remove(s);
             this.db.Add(s);
         }
 
