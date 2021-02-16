@@ -12,7 +12,7 @@ namespace WpfAppGestionUtilisateur.ViewModel
     {
         private readonly Salarie salarie;
 
-        #region
+        #region constructeur
         public SalarieViewModel(Salarie item)
         {
             this.salarie = item ?? throw new NullReferenceException("Salarie");
